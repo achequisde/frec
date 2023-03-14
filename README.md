@@ -2,7 +2,7 @@
 
 Waveform and frequency visualizer using native DOM elements.
 
-## Colaborators
+## Collaborators
 
 - Orlando Guevara, [coding-tomato](https://github.com/coding-tomato)
 - Humberto Rondon, [achequisde](https://github.com/achequisde)
