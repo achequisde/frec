@@ -26,5 +26,6 @@ This doesn't happen with the properties *trasnform*, *opacity* and *will-change*
 Changing the scale would mean that we'd take advantage of the browser to create a fully responsive bar graph for the waveform without creating any additional code to handle responsiveness.
 
 Sources:
-[1] https://web.dev/animations-overview/#pipeline
-[2] https://web.dev/animations-overview/
+
+1. https://web.dev/animations-overview/#pipeline
+2. https://web.dev/animations-overview/
