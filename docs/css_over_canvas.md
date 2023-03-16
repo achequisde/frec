@@ -1,5 +1,5 @@
 # Why use CSS over Canvas?
----
+
 ## Pitfalls of Canvas
 
 Canvas is an extremely performant rasterizer, the problem lies within the fact that it's bitmap based, thus can't be easily scaled without code that allows for it.
