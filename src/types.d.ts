@@ -1,0 +1,3 @@
+type BaseVisualizerConfig = {
+  segments?: number;
+}
