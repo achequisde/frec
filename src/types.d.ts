@@ -1,3 +1,3 @@
 type BaseVisualizerConfig = {
-  segments?: number;
+  barCount?: number;
 }
