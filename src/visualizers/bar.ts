@@ -9,7 +9,7 @@ export class BarVisualizer {
   private averageValues;
   private maxAverageValue;
 
-  constructor(element: HTMLElement, data: number[], config?: BaseVisualizerConfig) {
+  constructor(element: HTMLElement, data: number[], config?: BarVisualizerConfig) {
     this.parent = element;
     this.data = data;
     this.barCount = config?.barCount || 1;
@@ -61,7 +61,7 @@ export class BarVisualizer {
     this.updateScales();
   }
 
-  static create(parent: HTMLElement, data: number[], config: BaseVisualizerConfig) {
+  static create(parent: HTMLElement, data: number[], config: BarVisualizerConfig) {
     const visualizer = new BarVisualizer(parent, data, config);
     visualizer.createDomElements();
     visualizer.update()

@@ -4,6 +4,10 @@
   --scale: 0.6;
 }
 
+html {
+  background-color: black;
+}
+
 .container {
   width: clamp(4rem, 100%, 40rem);
   aspect-ratio: 16/9;
@@ -22,18 +26,18 @@
   border: 0.15rem solid var(--border-color);
   border-radius: 0.2rem;
 
-  background-color: white;
+  background-color: black;
 }
 
 @keyframes color {
   0% {
-    filter: invert(0);
+    filter: hue-rotate(0deg);
   }
   50% {
-    filter: invert(100%);
+    filter: hue-rotate(360deg);
   }
   100% {
-    filter: invert(0%);
+    filter: hue-rotate(0deg);
   }
 }
 
@@ -48,6 +52,6 @@
 
   background-color: var(--bar-color);
 
-  animation: color infinite 1s linear;
+  animation: color infinite 2s linear;
 }
 

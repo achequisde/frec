@@ -1,4 +1,4 @@
-# dom-waveform-frequency-visualizer
+# Surf
 
 Waveform and frequency visualizer using native DOM elements.
 

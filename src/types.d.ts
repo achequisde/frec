@@ -1,3 +1,3 @@
-type BaseVisualizerConfig = {
+type BarVisualizerConfig = {
   barCount?: number;
 }
