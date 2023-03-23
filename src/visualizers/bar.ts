@@ -2,14 +2,18 @@ import { STYLE } from "./constants";
 
 export class BarVisualizer {
   private parent;
-  private container: (null | HTMLElement) = null;
+  private container: null | HTMLElement = null;
   private data;
   private barCount;
   private dataBarCountRatio;
   private averageValues;
   private maxAverageValue;
 
-  constructor(element: HTMLElement, data: number[], config?: BaseVisualizerConfig) {
+  constructor(
+    element: HTMLElement,
+    data: number[],
+    config?: BaseVisualizerConfig
+  ) {
     this.parent = element;
     this.data = data;
     this.barCount = config?.barCount || 1;
@@ -18,7 +22,7 @@ export class BarVisualizer {
     this.dataBarCountRatio = Math.floor(this.data.length / this.barCount) || 1;
   }
 
-  set updateData(data: number[]) {
+  set updateData(data: any[]) {
     this.data = data;
     this.update();
   }
@@ -37,12 +41,17 @@ export class BarVisualizer {
 
   private processData() {
     for (
-      let i = 0, j = 0; 
+      let i = 0, j = 0;
       i < this.barCount && j < this.data.length;
       j += this.dataBarCountRatio, i++
-      ) {
-      const segment = this.data.slice(j, j + this.dataBarCountRatio)
-      const averageValue = segment.reduce((prev, curr) => prev + curr) / segment.length;
+    ) {
+      const segment = Array.prototype.slice.call(
+        this.data,
+        j,
+        j + this.dataBarCountRatio
+      );
+      const averageValue =
+        segment.reduce((prev, curr) => prev + curr) / segment.length;
       this.averageValues[i] = averageValue;
       this.maxAverageValue = Math.max(averageValue, this.maxAverageValue);
     }
@@ -61,10 +70,14 @@ export class BarVisualizer {
     this.updateScales();
   }
 
-  static create(parent: HTMLElement, data: number[], config: BaseVisualizerConfig) {
+  static create(
+    parent: HTMLElement,
+    data: number[],
+    config: BaseVisualizerConfig
+  ) {
     const visualizer = new BarVisualizer(parent, data, config);
     visualizer.createDomElements();
-    visualizer.update()
+    visualizer.update();
 
     return visualizer;
   }

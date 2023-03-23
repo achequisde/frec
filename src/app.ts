@@ -14,13 +14,30 @@ if (!container) {
   throw new Error("ID=container is undefined");
 }
 
-const getRandomArray = () => [...Array(20)].map(() => Math.random() * 100);
-const dummyData = getRandomArray();
+let barCount = 30;
 
-const BarVisInstance = BarVisualizer.create(container, dummyData, {
-  barCount: 20,
+// const getRandomArray = () =>
+//   [...Array(barCount)].map(() => Math.random() * 100);
+// const dummyData = getRandomArray();
+
+const BarVisInstance = BarVisualizer.create(container, vis.buffer, {
+  barCount,
 });
 
-setInterval(() => {
-  BarVisInstance.updateData = getRandomArray();
-}, 200);
+let lastTime;
+
+function draw(time) {
+  if (lastTime != null) {
+    if (time - lastTime > 200) {
+      vis.update();
+      BarVisInstance.updateData = vis.buffer;
+      lastTime = time;
+    }
+  } else {
+    lastTime = time;
+  }
+
+  requestAnimationFrame(draw);
+}
+
+requestAnimationFrame(draw);
