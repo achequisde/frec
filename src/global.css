@@ -15,8 +15,6 @@ html {
 
 .bar-visualizer {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
   gap: 0.5rem;
 
   width: 100%;
