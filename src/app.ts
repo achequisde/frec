@@ -1,4 +1,4 @@
-import { FrequencyVisualizer } from "./data";
+import { Frequency } from "./analysers";
 import { Bar } from "./visualizers";
 
 const audioElem = document.querySelector("audio");
@@ -7,7 +7,7 @@ const container = document.querySelector("#container") as HTMLElement;
 const audioCtx = new AudioContext();
 const source = audioCtx.createMediaElementSource(audioElem as any);
 
-const [vis, node] = FrequencyVisualizer.create(audioCtx, source);
+const [vis, node] = Frequency.create(audioCtx, source);
 node.connect(audioCtx.destination);
 
 if (!container) {
