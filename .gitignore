@@ -27,3 +27,4 @@ dist-ssr
 # Obsidian user config
 
 docs/.obsidian
+docs/fleeting.md

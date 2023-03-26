@@ -1,4 +1,4 @@
-# Surf
+# Frec
 
 Waveform and frequency visualizer using native DOM elements.
 
