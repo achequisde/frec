@@ -1,6 +1,7 @@
 import { STYLE } from "./constants";
+import { BaseVisualizer } from "./baseVisualizer";
 
-export class Bar {
+export class Bar extends BaseVisualizer {
   private parent;
   private container: null | HTMLElement = null;
   private data;
@@ -14,6 +15,7 @@ export class Bar {
     data: Float32Array,
     config?: BarVisualizerConfig
   ) {
+    super();
     this.parent = element;
     this.data = data;
     this.barCount = config?.barCount || 1;
@@ -22,12 +24,12 @@ export class Bar {
     this.dataBarCountRatio = Math.floor(this.data.length / this.barCount) || 1;
   }
 
-  set updateData(data: Float32Array) {
+  setData(data: Float32Array) {
     this.data = data;
     this.update();
   }
 
-  private createDomElements() {
+  createDomElements() {
     this.container = document.createElement("div");
     this.container.setAttribute("class", STYLE.CONTAINER);
     this.parent.appendChild(this.container);
@@ -39,7 +41,7 @@ export class Bar {
     }
   }
 
-  private processData() {
+  processData() {
     for (
       let i = 0, j = 0;
       i < this.barCount && j < this.data.length;
@@ -57,7 +59,7 @@ export class Bar {
     }
   }
 
-  private updateScales() {
+  updateScales() {
     for (let i = 0; i < this.barCount; i++) {
       const element = this.container?.children[i] as HTMLElement;
       const scale = this.averageValues[i] / this.maxAverageValue;
@@ -65,7 +67,7 @@ export class Bar {
     }
   }
 
-  private update() {
+  update() {
     this.processData();
     this.updateScales();
   }

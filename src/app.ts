@@ -26,7 +26,7 @@ function draw(time: number) {
   if (lastTime != null) {
     if (time - lastTime > 200) {
       vis.update();
-      BarVisInstance.updateData = vis.buffer;
+      BarVisInstance.setData(vis.buffer);
       lastTime = time;
     }
   } else {
