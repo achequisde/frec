@@ -1,6 +1,13 @@
 import { STYLE } from "./constants";
-import { BaseVisualizer } from "./baseVisualizer";
+import { BaseVisualizer } from "./base";
 
+/**
+ * Bar graph visualizer.
+ * @constructor
+ * @param {HTMLElement} element - Parent element where DOM elements will be instantiated.
+ * @param {Float32Array} data - Data to be displayed.
+ * @param {BarVisualizerConfig} data - Additional configuration for the visualizer's display.
+ */
 export class Bar extends BaseVisualizer {
   private parent;
   private container: null | HTMLElement = null;
@@ -22,6 +29,9 @@ export class Bar extends BaseVisualizer {
     this.averageValues = new Array<number>(config?.barCount || 1);
     this.maxAverageValue = 0;
     this.dataBarCountRatio = Math.floor(this.data.length / this.barCount) || 1;
+
+    this.createDomElements();
+    this.update();
   }
 
   setData(data: Float32Array) {
@@ -70,17 +80,5 @@ export class Bar extends BaseVisualizer {
   update() {
     this.processData();
     this.updateScales();
-  }
-
-  static create(
-    parent: HTMLElement,
-    data: Float32Array,
-    config: BarVisualizerConfig
-  ) {
-    const visualizer = new Bar(parent, data, config);
-    visualizer.createDomElements();
-    visualizer.update();
-
-    return visualizer;
   }
 }

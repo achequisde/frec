@@ -5,7 +5,7 @@ export class Frequency {
     this.analyser.fftSize = 256;
     this.buffer = new Float32Array(this.length());
   }
-
+  
   set fftSize(size: number) {
     this.analyser.fftSize = size;
     this.buffer = new Float32Array(this.length());

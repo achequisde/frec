@@ -1,2 +1,2 @@
-export { BaseVisualizer } from './baseVisualizer';
+export { BaseVisualizer } from './base';
 export { Bar } from './bar';

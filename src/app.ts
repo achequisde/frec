@@ -1,11 +1,11 @@
 import { Frequency } from "./analysers";
 import { Bar } from "./visualizers";
 
-const audioElem = document.querySelector("audio");
+const audioElem = document.querySelector("audio") as HTMLAudioElement;
 const container = document.querySelector("#container") as HTMLElement;
 
 const audioCtx = new AudioContext();
-const source = audioCtx.createMediaElementSource(audioElem as any);
+const source = audioCtx.createMediaElementSource(audioElem);
 
 const [vis, node] = Frequency.create(audioCtx, source);
 node.connect(audioCtx.destination);
@@ -16,7 +16,7 @@ if (!container) {
 
 const barCount = 30;
 
-const BarVisInstance = Bar.create(container, vis.buffer, {
+const BarVisInstance = new Bar(container, vis.buffer, {
   barCount,
 });
 
