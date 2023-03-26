@@ -42,13 +42,13 @@ html {
 .bar-visualizer__bar {
   width: 100%;
   height: 100%;
-  border-radius: 0.2rem;
+  border-radius: 4rem;
 
   transform: scaleY(var(--scale));
   transform-origin: bottom;
   transition: transform 300ms;
 
-  background-color: var(--bar-color);
+  background: linear-gradient(to top, red, yellow);
 
   animation: color infinite 2s linear;
 }

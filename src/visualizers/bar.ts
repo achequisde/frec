@@ -1,6 +1,6 @@
 import { STYLE } from "./constants";
 
-export class BarVisualizer {
+export class Bar {
   private parent;
   private container: null | HTMLElement = null;
   private data;
@@ -75,7 +75,7 @@ export class BarVisualizer {
     data: number[],
     config: BarVisualizerConfig
   ) {
-    const visualizer = new BarVisualizer(parent, data, config);
+    const visualizer = new Bar(parent, data, config);
     visualizer.createDomElements();
     visualizer.update();
 

@@ -1,1 +1,1 @@
-export { BarVisualizer } from './bar';
+export { Bar } from './bar';
