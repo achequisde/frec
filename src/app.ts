@@ -1,5 +1,5 @@
 import { FrequencyVisualizer } from "./data";
-import { BarVisualizer } from "./visualizers";
+import { Bar } from "./visualizers";
 
 const audioElem = document.querySelector("audio");
 const container = document.querySelector("#container") as HTMLElement;
@@ -20,7 +20,7 @@ let barCount = 30;
 //   [...Array(barCount)].map(() => Math.random() * 100);
 // const dummyData = getRandomArray();
 
-const BarVisInstance = BarVisualizer.create(container, vis.buffer, {
+const BarVisInstance = Bar.create(container, vis.buffer, {
   barCount,
 });
 
