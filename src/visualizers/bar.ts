@@ -11,7 +11,7 @@ export class Bar {
 
   constructor(
     element: HTMLElement,
-    data: number[],
+    data: Float32Array,
     config?: BarVisualizerConfig
   ) {
     this.parent = element;
@@ -22,7 +22,7 @@ export class Bar {
     this.dataBarCountRatio = Math.floor(this.data.length / this.barCount) || 1;
   }
 
-  set updateData(data: any[]) {
+  set updateData(data: Float32Array) {
     this.data = data;
     this.update();
   }
@@ -72,7 +72,7 @@ export class Bar {
 
   static create(
     parent: HTMLElement,
-    data: number[],
+    data: Float32Array,
     config: BarVisualizerConfig
   ) {
     const visualizer = new Bar(parent, data, config);

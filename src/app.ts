@@ -7,26 +7,22 @@ const container = document.querySelector("#container") as HTMLElement;
 const audioCtx = new AudioContext();
 const source = audioCtx.createMediaElementSource(audioElem as any);
 
-const [vis, node] = FrequencyVisualizer.create(audioCtx, source, container);
+const [vis, node] = FrequencyVisualizer.create(audioCtx, source);
 node.connect(audioCtx.destination);
 
 if (!container) {
   throw new Error("ID=container is undefined");
 }
 
-let barCount = 30;
-
-// const getRandomArray = () =>
-//   [...Array(barCount)].map(() => Math.random() * 100);
-// const dummyData = getRandomArray();
+const barCount = 30;
 
 const BarVisInstance = Bar.create(container, vis.buffer, {
   barCount,
 });
 
-let lastTime;
+let lastTime: number = 0;
 
-function draw(time) {
+function draw(time: number) {
   if (lastTime != null) {
     if (time - lastTime > 200) {
       vis.update();
