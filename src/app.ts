@@ -20,11 +20,12 @@ const BarVisInstance = new Bar(container, vis.buffer, {
   barCount,
 });
 
-let lastTime: number = 0;
+let lastTime: ms = 0;
+const interval: ms = 200;
 
-function draw(time: number) {
+function draw(time: ms) {
   if (lastTime != null) {
-    if (time - lastTime > 200) {
+    if (time - lastTime > interval) {
       vis.update();
       BarVisInstance.setData(vis.buffer);
       lastTime = time;
