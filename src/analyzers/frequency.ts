@@ -1,8 +1,12 @@
-export class Frequency {
+import { BaseAnalyzer } from "./base";
+
+export class Frequency extends BaseAnalyzer {
   public buffer;
   analyzer;
 
   constructor(audioElement: HTMLAudioElement) {
+    super();
+
     const context = new AudioContext();
     const source = context.createMediaElementSource(audioElement);
 
