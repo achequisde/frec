@@ -1,31 +1,16 @@
-import { BaseAnalyzer } from "./analyzers/base";
-import { BaseVisualizer } from "./visualizers";
+import { Frequency } from "./analyzers";
+import FrecInstance from "./frecInstance";
+import { Bar } from "./visualizers";
 
-export default class Frec {
-  interval: ms = 50;
+export default abstract class Frec {
+  static createBar(container: HTMLElement, audio: HTMLAudioElement): FrecInstance {
+    const analyzer = new Frequency(audio);
+    const visualizer = new Bar(container, analyzer.buffer, {
+      barCount: 30,
+    });
 
-  constructor(
-    private visualizer: BaseVisualizer,
-    private analyzer: BaseAnalyzer
-  ) {}
+    const frec = new FrecInstance(visualizer, analyzer);
 
-  startTimer() {
-    let lastTime: ms = 0;
-
-    const draw = (time: ms) => {
-      if (lastTime != null) {
-        if (time - lastTime > this.interval) {
-          this.analyzer.update();
-          this.visualizer.setData(this.analyzer.buffer);
-          lastTime = time;
-        }
-      } else {
-        lastTime = time;
-      }
-
-      requestAnimationFrame(draw);
-    };
-
-    requestAnimationFrame(draw);
+    return frec;
   }
 }
