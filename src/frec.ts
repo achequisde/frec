@@ -2,10 +2,11 @@ import { BaseAnalyzer } from "./analyzers/base";
 import { BaseVisualizer } from "./visualizers";
 
 export default class Frec {
+  interval: ms = 50;
+
   constructor(
     private visualizer: BaseVisualizer,
-    private analyzer: BaseAnalyzer,
-    private interval: ms = 20
+    private analyzer: BaseAnalyzer
   ) {}
 
   startTimer() {
@@ -23,7 +24,7 @@ export default class Frec {
       }
 
       requestAnimationFrame(draw);
-    }
+    };
 
     requestAnimationFrame(draw);
   }
