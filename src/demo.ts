@@ -1,23 +1,12 @@
-import { Frequency } from "./analysers";
+import { Frequency } from "./analyzers";
 import { Bar } from "./visualizers";
 
 const audioElem = document.querySelector("audio") as HTMLAudioElement;
 const container = document.querySelector("#container") as HTMLElement;
 
-const audioCtx = new AudioContext();
-const source = audioCtx.createMediaElementSource(audioElem);
-
-const [vis, node] = Frequency.create(audioCtx, source);
-node.connect(audioCtx.destination);
-
-if (!container) {
-  throw new Error("ID=container is undefined");
-}
-
-const barCount = 30;
-
-const BarVisInstance = new Bar(container, vis.buffer, {
-  barCount,
+const analyzer = new Frequency(audioElem);
+const BarVisInstance = new Bar(container, analyzer.buffer, {
+  barCount: 30,
 });
 
 let lastTime: ms = 0;
@@ -26,8 +15,8 @@ const interval: ms = 200;
 function draw(time: ms) {
   if (lastTime != null) {
     if (time - lastTime > interval) {
-      vis.update();
-      BarVisInstance.setData(vis.buffer);
+      analyzer.update();
+      BarVisInstance.setData(analyzer.buffer);
       lastTime = time;
     }
   } else {
