@@ -6,9 +6,10 @@
  * @param {BarVisualizerConfig} data - Additional configuration for the visualizer's display.
  */
 export abstract class BaseVisualizer {
-  protected setData(data: Float32Array) {}
   protected createDomElements() {}
   protected processData() {}
   protected updateScales() {}
-  protected update() {}
+
+  setData(data: Float32Array) {}
+  update() {}
 }

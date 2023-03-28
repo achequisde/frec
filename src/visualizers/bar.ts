@@ -34,11 +34,6 @@ export class Bar extends BaseVisualizer {
     this.update();
   }
 
-  setData(data: Float32Array) {
-    this.data = data;
-    this.update();
-  }
-
   createDomElements() {
     this.container = document.createElement("div");
     this.container.setAttribute("class", STYLE.CONTAINER);
@@ -75,6 +70,11 @@ export class Bar extends BaseVisualizer {
       const scale = this.averageValues[i] / this.maxAverageValue;
       element.style.transform = `scaleY(${scale})`;
     }
+  }
+
+  setData(data: Float32Array) {
+    this.data = data;
+    this.update();
   }
 
   update() {
