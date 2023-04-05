@@ -53,3 +53,13 @@ html {
   animation: color infinite 2s linear;
 }
 
+.step-visualizer__bar {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed tomato;
+}
+
+.step-visualizer__step {
+  box-sizing: border-box;
+  border: 1px solid violet;
+}

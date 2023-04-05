@@ -26,7 +26,7 @@ export class Bar extends BaseVisualizer {
     this.parent = element;
     this.data = data;
     this.barCount = config?.barCount || 1;
-    this.averageValues = new Array<number>(config?.barCount || 1);
+    this.averageValues = new Array<number>(this.barCount);
     this.maxAverageValue = 0;
     this.dataBarCountRatio = Math.floor(this.data.length / this.barCount) || 1;
 
