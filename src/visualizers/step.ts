@@ -4,7 +4,6 @@ import { STYLE } from "./constants";
 class DOMBar {
   public container = document.createElement("div");
   public children: DOMBar[] = [];
-  private hidden = false;
 
   constructor(private classes: string[] = []) {
     this.container.setAttribute("class", classes.join(" "));
@@ -15,14 +14,12 @@ class DOMBar {
     this.container.appendChild(child.container);
   }
 
-  toggleHide() {
-    if (this.hidden) {
-      this.container.removeAttribute("hidden");
-      this.hidden = false;
-    } else {
-      this.container.setAttribute("hidden", "true");
-      this.hidden = true;
-    }
+  hide() {
+    this.container.setAttribute("hidden", "true");
+  }
+
+  show() {
+    this.container.removeAttribute("hidden");
   }
 }
 
@@ -33,17 +30,18 @@ export class Step extends BaseVisualizer {
   public maxAverageValue: number;
 
   private elements: DOMBar[] = [];
+  private lastIndexMap = new WeakMap();
 
   constructor(
     public parent: HTMLElement,
     public data: Float32Array,
-    private config = { barCount: 8, stepCount: 40 },
+    private config = { barCount: 8, stepCount: 64 }
   ) {
     super();
 
     this.maxAverageValue = 0;
     this.dataBarCountRatio = this.data.length / this.config.barCount;
-
+    this.averageValues = new Array<number>(this.config.barCount);
     this.container.setAttribute("class", STYLE.CONTAINER);
     this.parent.appendChild(this.container);
     this.createDomElements();
@@ -56,10 +54,16 @@ export class Step extends BaseVisualizer {
       this.container.appendChild(bar.container);
     }
 
+    let containerHeight =
+    parseFloat(window.getComputedStyle(this.container, null).height) /
+      this.config.stepCount - 1 +
+    "px";
+
     for (let element of this.elements) {
       for (let i = 0; i < this.config.stepCount; i++) {
         let stepBar = new DOMBar(["step-visualizer__step"]);
         element.appendChild(stepBar);
+        stepBar.container.style.flexBasis = containerHeight;
       }
     }
   }
@@ -82,5 +86,44 @@ export class Step extends BaseVisualizer {
     }
   }
 
-  updateScales(): void {}
+  updateScales(): void {
+    let stepSize = this.maxAverageValue / this.config.stepCount;
+
+    for (let [index, element] of this.elements.entries()) {
+      // Steps shown will be from 0 to stepAmount
+      // We must add 'justify-content: flex-end' in CSS for this to work properly
+      let stepAmount = Math.floor(this.averageValues[index] / stepSize);
+
+      if (this.lastIndexMap.has(element)) {
+        let lastIndex = this.lastIndexMap.get(element);
+        let diff = lastIndex - stepAmount;
+
+        // We need to hide ${diff} elements
+        if (diff > 0) {
+          let segment = element.children.slice(stepAmount, lastIndex);
+          segment.forEach((e) => e.hide());
+
+          // We need to show ${diff} elements
+        } else if (diff < 0) {
+          let segment = element.children.slice(lastIndex, stepAmount);
+          segment.forEach((e) => e.show());
+        }
+      } else {
+        let segment = element.children.slice(stepAmount);
+        segment.forEach((e) => e.hide());
+      }
+
+      this.lastIndexMap.set(element, stepAmount);
+    }
+  }
+
+  setData(data: Float32Array) {
+    this.data = data;
+    this.update();
+  }
+
+  update() {
+    this.processData();
+    this.updateScales();
+  }
 }
