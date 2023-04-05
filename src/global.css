@@ -54,6 +54,9 @@ html {
 }
 
 .step-visualizer__bar {
+  display: flex;
+  flex-direction: column;
+
   width: 100%;
   height: 100%;
   border: 1px dashed tomato;
@@ -62,4 +65,5 @@ html {
 .step-visualizer__step {
   box-sizing: border-box;
   border: 1px solid violet;
+  flex: 1 1 auto;
 }

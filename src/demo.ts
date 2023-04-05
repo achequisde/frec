@@ -7,4 +7,4 @@ const container = document.querySelector("#container") as HTMLElement;
 // const frec = Frec.createBar(container, audioElem);
 // frec.startTimer();
 
-let step = new Step(container);
+let step = new Step(container, []);

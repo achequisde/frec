@@ -56,17 +56,10 @@ export class Step extends BaseVisualizer {
       this.container.appendChild(bar.container);
     }
 
-    // TODO: Replace with 'display: float'
-    let containerHeight =
-      parseFloat(window.getComputedStyle(this.container, null).height) /
-        this.config.stepCount +
-      "px";
-
     for (let element of this.elements) {
       for (let i = 0; i < this.config.stepCount; i++) {
         let stepBar = new DOMBar(["step-visualizer__step"]);
         element.appendChild(stepBar);
-        stepBar.container.style.height = containerHeight;
       }
     }
   }
