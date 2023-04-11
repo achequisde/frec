@@ -35,7 +35,8 @@ export class Step extends BaseVisualizer {
   constructor(
     public parent: HTMLElement,
     public data: Float32Array,
-    private config = { barCount: 8, stepCount: 64 }
+    private config = { barCount: 8, stepCount: 64 },
+    private colors = [ "lime", "yellow", "red" ]
   ) {
     super();
 
@@ -59,11 +60,15 @@ export class Step extends BaseVisualizer {
       this.config.stepCount - 1 +
     "px";
 
+    let colorSegments = Math.floor(this.config.stepCount / this.colors.length) + 1;
+
+    // Create steps
     for (let element of this.elements) {
       for (let i = 0; i < this.config.stepCount; i++) {
         let stepBar = new DOMBar(["step-visualizer__step"]);
-        element.appendChild(stepBar);
         stepBar.container.style.flexBasis = containerHeight;
+        stepBar.container.style.backgroundColor = this.colors[Math.floor(i / colorSegments)];
+        element.appendChild(stepBar);
       }
     }
   }
