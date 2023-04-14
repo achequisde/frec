@@ -1,11 +1,15 @@
 import { BaseVisualizer } from "./base";
 import { STYLE } from "./constants";
 
-function elt(
-  tagName: string,
-  props: Object,
+type HTMLElementProperties = {
+  [Properties in keyof HTMLElement]?: string | object;
+};
+
+function elt<T extends keyof HTMLElementTagNameMap>(
+  tagName: T,
+  props?: HTMLElementProperties,
   ...children: HTMLElement[]
-): HTMLElement {
+): HTMLElementTagNameMap[T] {
   const dom = document.createElement(tagName);
   if (props) Object.assign(dom, props);
 
@@ -40,7 +44,7 @@ class DOMBar {
 }
 
 export class Step extends BaseVisualizer {
-  public container = document.createElement("div");
+  public container = elt("div", { className: STYLE.CONTAINER });
   public dataBarCountRatio: number;
   public averageValues: any;
   public maxAverageValue: number;
