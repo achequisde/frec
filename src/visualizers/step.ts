@@ -1,6 +1,21 @@
 import { BaseVisualizer } from "./base";
 import { STYLE } from "./constants";
 
+function elt(
+  tagName: string,
+  props: Object,
+  ...children: HTMLElement[]
+): HTMLElement {
+  const dom = document.createElement(tagName);
+  if (props) Object.assign(dom, props);
+
+  for (const child of children) {
+    dom.appendChild(child);
+  }
+
+  return dom;
+}
+
 class DOMBar {
   public dom = document.createElement("div");
   public children: DOMBar[] = [];
