@@ -20,6 +20,16 @@ function elt<T extends keyof HTMLElementTagNameMap>(
   return dom;
 }
 
+function* times<T>(
+  n: number,
+  func: (...args: any) => T,
+  ...args: any[]
+): Generator<T> {
+  for (let i = 0; i < n; i++) {
+    yield func(...args);
+  }
+}
+
 class DOMBar {
   public dom = document.createElement("div");
   public children: DOMBar[] = [];
